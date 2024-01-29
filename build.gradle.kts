@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web:3.2.2")
+  implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
   testImplementation("org.springframework.boot:spring-boot-starter-test:3.2.2")
   testImplementation("io.mockk:mockk:1.13.4")
 }
