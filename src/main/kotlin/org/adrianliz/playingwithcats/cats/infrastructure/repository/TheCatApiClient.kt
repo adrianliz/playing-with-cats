@@ -1,6 +1,6 @@
-package org.adrianliz.playingwithcats.infrastructure.repository
+package org.adrianliz.playingwithcats.cats.infrastructure.repository
 
-import org.adrianliz.playingwithcats.domain.Cat
+import org.adrianliz.playingwithcats.cats.domain.Cat
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.stereotype.Service

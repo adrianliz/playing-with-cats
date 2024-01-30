@@ -1,4 +1,4 @@
-package org.adrianliz.playingwithcats.infrastructure.repository
+package org.adrianliz.playingwithcats.cats.infrastructure.repository
 
 data class TheCatApiSearchResponse(
     val id: String,
@@ -6,5 +6,4 @@ data class TheCatApiSearchResponse(
     val width: Int,
     val height: Int,
     val breeds: List<TheCatApiBreedResponse>,
-) {
-}
+)

@@ -1,4 +1,4 @@
-package org.adrianliz.playingwithcats.domain
+package org.adrianliz.playingwithcats.cats.domain
 
 interface CatRepository {
     fun findAll(): List<Cat>

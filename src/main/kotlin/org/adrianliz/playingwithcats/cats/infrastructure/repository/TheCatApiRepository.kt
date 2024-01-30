@@ -1,7 +1,7 @@
-package org.adrianliz.playingwithcats.infrastructure.repository
+package org.adrianliz.playingwithcats.cats.infrastructure.repository
 
-import org.adrianliz.playingwithcats.domain.Cat
-import org.adrianliz.playingwithcats.domain.CatRepository
+import org.adrianliz.playingwithcats.cats.domain.Cat
+import org.adrianliz.playingwithcats.cats.domain.CatRepository
 import org.springframework.stereotype.Service
 
 @Service

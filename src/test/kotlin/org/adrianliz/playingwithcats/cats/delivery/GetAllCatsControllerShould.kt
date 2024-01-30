@@ -1,12 +1,12 @@
-package org.adrianliz.playingwithcats.infrastructure
+package org.adrianliz.playingwithcats.cats.delivery
 
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.unmockkAll
-import org.adrianliz.playingwithcats.domain.Cat
-import org.adrianliz.playingwithcats.domain.CatRepository
-import org.adrianliz.playingwithcats.infrastructure.repository.TheCatApiClient
-import org.adrianliz.playingwithcats.infrastructure.repository.TheCatApiRepository
+import org.adrianliz.playingwithcats.cats.domain.Cat
+import org.adrianliz.playingwithcats.cats.domain.CatRepository
+import org.adrianliz.playingwithcats.cats.infrastructure.repository.TheCatApiClient
+import org.adrianliz.playingwithcats.cats.infrastructure.repository.TheCatApiRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -59,7 +59,7 @@ class GetAllCatsControllerShould(
         val getAllCatsResponse = client.get()
             .uri("/cats")
             .retrieve()
-            .body(object : ParameterizedTypeReference<GetAllCatsResponse>() {});
+            .body(object : ParameterizedTypeReference<GetAllCatsResponse>() {})
 
         assertThat(getAllCatsResponse).isNotNull
         assertThat(getAllCatsResponse?.cats).isNotNull
