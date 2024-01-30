@@ -1,5 +1,6 @@
 package org.adrianliz.playingwithcats.breeds.infrastructure.repository
 
+import org.adrianliz.playingwithcats.breeds.domain.BreadFilter
 import org.adrianliz.playingwithcats.breeds.domain.Breed
 import org.adrianliz.playingwithcats.breeds.domain.BreedRepository
 import org.adrianliz.playingwithcats.breeds.infrastructure.thecatapi.BreedsClient
@@ -10,5 +11,9 @@ class TheCatApiBreedRepository(private val client: BreedsClient) : BreedReposito
 
     override fun findAll(): List<Breed> {
         return client.getAllBreeds()
+    }
+
+    override fun search(filter: BreadFilter): List<Breed> {
+        return filter.filter(findAll())
     }
 }

@@ -22,6 +22,6 @@ class BreedsClient(
             .retrieve()
             .body(object : ParameterizedTypeReference<List<BreedResponse>>() {}) ?: emptyList()
 
-        return breedsResponse.map { Breed(it.name) }
+        return breedsResponse.map { Breed(it.id, it.name) }
     }
 }

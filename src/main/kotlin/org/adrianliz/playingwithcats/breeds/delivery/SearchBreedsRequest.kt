@@ -1,3 +1,3 @@
 package org.adrianliz.playingwithcats.breeds.delivery
 
-data class GetBreedResponse(val name: String)
+data class SearchBreedsRequest(val limit: Int = 3)
