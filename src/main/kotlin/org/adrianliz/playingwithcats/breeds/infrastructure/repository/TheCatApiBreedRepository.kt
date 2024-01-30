@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository
 @Repository
 class TheCatApiBreedRepository(private val client: BreedsClient) : BreedRepository {
 
-    override fun findAll(): List<Breed> {
-        return client.getAllBreeds()
-    }
-
     override fun search(filter: BreadFilter): List<Breed> {
         return filter.filter(findAll())
+    }
+
+    private fun findAll(): List<Breed> {
+        return client.getAllBreeds()
     }
 }
