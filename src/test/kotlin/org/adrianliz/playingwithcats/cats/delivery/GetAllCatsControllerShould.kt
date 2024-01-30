@@ -5,8 +5,8 @@ import io.mockk.mockk
 import io.mockk.unmockkAll
 import org.adrianliz.playingwithcats.cats.domain.Cat
 import org.adrianliz.playingwithcats.cats.domain.CatRepository
-import org.adrianliz.playingwithcats.cats.infrastructure.repository.TheCatApiClient
 import org.adrianliz.playingwithcats.cats.infrastructure.repository.TheCatApiRepository
+import org.adrianliz.playingwithcats.cats.infrastructure.thecatapi.ImagesClient
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -29,7 +29,7 @@ class GetAllCatsControllerShould(
     private val client = RestClient.builder().baseUrl("http://localhost:$apiPort").build()
 
     @Autowired
-    private lateinit var catApiClient: TheCatApiClient
+    private lateinit var catApiClient: ImagesClient
 
     companion object {
         @JvmStatic
@@ -44,10 +44,10 @@ class GetAllCatsControllerShould(
     class GetAllCatsControllerTestConfiguration {
         @Bean
         @Primary
-        fun mockCatApiClient() = mockk<TheCatApiClient>()
+        fun imagesClient() = mockk<ImagesClient>()
 
         @Bean
-        fun catRepository(mockCatApiClient: TheCatApiClient) = TheCatApiRepository(mockCatApiClient)
+        fun catRepository(imagesClient: ImagesClient) = TheCatApiRepository(imagesClient)
 
         @Bean
         fun getAllCatsController(catRepository: CatRepository) = GetAllCatsController(catRepository)
