@@ -18,6 +18,8 @@ import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.core.ParameterizedTypeReference
+import org.springframework.test.context.DynamicPropertyRegistry
+import org.springframework.test.context.DynamicPropertySource
 import org.springframework.web.client.RestClient
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -29,6 +31,14 @@ class GetAllCatsControllerShould(
     @Autowired
     private lateinit var catApiClient: TheCatApiClient
 
+    companion object {
+        @JvmStatic
+        @DynamicPropertySource
+        fun properties(registry: DynamicPropertyRegistry) {
+            registry.add("theCatApi.baseUri") { "https://api.thecatapi.com/v1" }
+            registry.add("theCatApi.apiKey") { "fake-api-key" }
+        }
+    }
 
     @TestConfiguration
     class GetAllCatsControllerTestConfiguration {
