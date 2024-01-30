@@ -61,4 +61,13 @@ class SearchBreedsUseCaseShould {
             useCase.search(BreadFilter(11))
         }
     }
+
+    @Test
+    fun `throws invalid number of breeds exception when requested less than 1 breeds`() {
+        val useCase = SearchBreedsUseCase(breedRepository)
+
+        assertThrows<InvalidNumOfBreedsException> {
+            useCase.search(BreadFilter(0))
+        }
+    }
 }
