@@ -7,7 +7,7 @@ import org.adrianliz.playingwithcats.breeds.domain.Breed
 import org.adrianliz.playingwithcats.breeds.domain.InvalidNumOfBreedsException
 import org.adrianliz.playingwithcats.breeds.infrastructure.repository.TheCatApiBreedRepository
 import org.adrianliz.playingwithcats.breeds.infrastructure.thecatapi.BreedsClient
-import org.adrianliz.playingwithcats.common.mother.StringMother
+import org.adrianliz.playingwithcats.breeds.mother.BreedMother
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -20,11 +20,6 @@ class SearchBreedsUseCaseShould {
     private val breedsClient = mockk<BreedsClient>()
     private val breedRepository = TheCatApiBreedRepository(breedsClient)
 
-    private fun createBreed(
-        id: String = StringMother.random(),
-        name: String = StringMother.random()
-    ) = Breed(id, name)
-
     private fun givenThereAreBreeds(breeds: List<Breed>) {
         every {
             breedsClient.getAllBreeds()
@@ -34,9 +29,7 @@ class SearchBreedsUseCaseShould {
     @ParameterizedTest
     @CsvSource("3, 3", "3, 5")
     fun `search randomly n breeds of m when requested`(numOfBreedsToFilter: Int, totalBreeds: Int) {
-        val existingBreeds = IntRange(1, totalBreeds).map {
-            createBreed()
-        }
+        val existingBreeds = BreedMother.randoms(totalBreeds)
         givenThereAreBreeds(existingBreeds)
         val useCase = SearchBreedsUseCase(breedRepository)
         val filter = BreadFilter(numOfBreedsToFilter)

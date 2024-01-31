@@ -5,13 +5,13 @@ import io.mockk.mockk
 import org.adrianliz.playingwithcats.breeds.domain.Breed
 import org.adrianliz.playingwithcats.breeds.infrastructure.repository.TheCatApiBreedRepository
 import org.adrianliz.playingwithcats.breeds.infrastructure.thecatapi.BreedsClient
+import org.adrianliz.playingwithcats.breeds.mother.BreedMother
 import org.adrianliz.playingwithcats.breeds.usecases.SearchBreedsUseCase
 import org.adrianliz.playingwithcats.cats.domain.Cat
 import org.adrianliz.playingwithcats.cats.domain.CatFilter
 import org.adrianliz.playingwithcats.cats.infrastructure.repository.TheCatApiRepository
 import org.adrianliz.playingwithcats.cats.infrastructure.thecatapi.ImagesClient
 import org.adrianliz.playingwithcats.cats.usecases.SearchCatsUseCase
-import org.adrianliz.playingwithcats.common.mother.StringMother
 import org.adrianliz.playingwithcats.questions.domain.BreedChooser
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -24,11 +24,6 @@ class QuestionCreatorUseCaseShould {
     private val catRepository = TheCatApiRepository(imagesClient)
     private val searchBreedsUseCase = SearchBreedsUseCase(breedRepository)
     private val searchCatsUseCase = SearchCatsUseCase(catRepository)
-
-    private fun createBreed(
-        id: String = StringMother.random(),
-        name: String = StringMother.random()
-    ) = Breed(id, name)
 
     private fun givenThereAreBreeds(breeds: List<Breed>) {
         every {
@@ -53,9 +48,7 @@ class QuestionCreatorUseCaseShould {
 
     @Test
     fun `create a question with 3 breeds and a cat that matches the first breed`() {
-        val existingBreeds = IntRange(1, 10).map {
-            createBreed()
-        }
+        val existingBreeds = BreedMother.randoms()
         val firstBreed = existingBreeds[0]
         val cat = Cat(firstBreed.id, firstBreed.name)
         val filter = CatFilter(cat.breedId)
