@@ -6,6 +6,7 @@ import org.adrianliz.playingwithcats.cats.domain.Cat
 import org.adrianliz.playingwithcats.cats.domain.CatFilter
 import org.adrianliz.playingwithcats.cats.infrastructure.repository.TheCatApiRepository
 import org.adrianliz.playingwithcats.cats.infrastructure.thecatapi.ImagesClient
+import org.adrianliz.playingwithcats.common.mother.StringMother
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -13,14 +14,9 @@ class SearchCatsUseCaseShould {
     private val client = mockk<ImagesClient>()
     private val catsRepository = TheCatApiRepository(client)
 
-    private fun randomString(): String {
-        val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
-        return List(10) { charPool.random() }.joinToString("")
-    }
-
     private fun createCat(
-        breedId: String = randomString(),
-        breedName: String = randomString()
+        breedId: String = StringMother.random(),
+        breedName: String = StringMother.random()
     ) = Cat(breedId, breedName)
 
     private fun givenThereIsACatMatching(filter: CatFilter, cat: Cat) {

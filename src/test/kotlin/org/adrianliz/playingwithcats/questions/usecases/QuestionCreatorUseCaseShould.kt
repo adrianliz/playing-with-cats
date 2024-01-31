@@ -11,6 +11,7 @@ import org.adrianliz.playingwithcats.cats.domain.CatFilter
 import org.adrianliz.playingwithcats.cats.infrastructure.repository.TheCatApiRepository
 import org.adrianliz.playingwithcats.cats.infrastructure.thecatapi.ImagesClient
 import org.adrianliz.playingwithcats.cats.usecases.SearchCatsUseCase
+import org.adrianliz.playingwithcats.common.mother.StringMother
 import org.adrianliz.playingwithcats.questions.domain.BreedChooser
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -24,14 +25,9 @@ class QuestionCreatorUseCaseShould {
     private val searchBreedsUseCase = SearchBreedsUseCase(breedRepository)
     private val searchCatsUseCase = SearchCatsUseCase(catRepository)
 
-    private fun randomString(): String {
-        val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
-        return List(10) { charPool.random() }.joinToString("")
-    }
-
     private fun createBreed(
-        id: String = randomString(),
-        name: String = randomString()
+        id: String = StringMother.random(),
+        name: String = StringMother.random()
     ) = Breed(id, name)
 
     private fun givenThereAreBreeds(breeds: List<Breed>) {

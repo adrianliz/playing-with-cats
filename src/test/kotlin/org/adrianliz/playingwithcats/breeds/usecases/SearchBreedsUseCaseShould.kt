@@ -7,6 +7,7 @@ import org.adrianliz.playingwithcats.breeds.domain.Breed
 import org.adrianliz.playingwithcats.breeds.domain.InvalidNumOfBreedsException
 import org.adrianliz.playingwithcats.breeds.infrastructure.repository.TheCatApiBreedRepository
 import org.adrianliz.playingwithcats.breeds.infrastructure.thecatapi.BreedsClient
+import org.adrianliz.playingwithcats.common.mother.StringMother
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -19,14 +20,9 @@ class SearchBreedsUseCaseShould {
     private val breedsClient = mockk<BreedsClient>()
     private val breedRepository = TheCatApiBreedRepository(breedsClient)
 
-    private fun randomString(): String {
-        val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
-        return List(10) { charPool.random() }.joinToString("")
-    }
-
     private fun createBreed(
-        id: String = randomString(),
-        name: String = randomString()
+        id: String = StringMother.random(),
+        name: String = StringMother.random()
     ) = Breed(id, name)
 
     private fun givenThereAreBreeds(breeds: List<Breed>) {
