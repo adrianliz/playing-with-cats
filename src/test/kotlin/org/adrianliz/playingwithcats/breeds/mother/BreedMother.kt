@@ -9,7 +9,7 @@ class BreedMother {
             random()
         }
 
-        private fun random() = create()
+        fun random() = create()
 
         private fun create(
             id: String = StringMother.random(),

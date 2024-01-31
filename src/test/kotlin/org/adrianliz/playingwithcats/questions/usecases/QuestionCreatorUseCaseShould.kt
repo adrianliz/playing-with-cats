@@ -8,11 +8,11 @@ import org.adrianliz.playingwithcats.breeds.infrastructure.repository.TheCatApiB
 import org.adrianliz.playingwithcats.breeds.infrastructure.thecatapi.BreedsClient
 import org.adrianliz.playingwithcats.breeds.mother.BreedMother
 import org.adrianliz.playingwithcats.breeds.usecases.SearchBreedsUseCase
-import org.adrianliz.playingwithcats.cats.domain.Cat
 import org.adrianliz.playingwithcats.cats.domain.CatFilter
 import org.adrianliz.playingwithcats.cats.givens.ImagesClientGiven
 import org.adrianliz.playingwithcats.cats.infrastructure.repository.TheCatApiRepository
 import org.adrianliz.playingwithcats.cats.infrastructure.thecatapi.ImagesClient
+import org.adrianliz.playingwithcats.cats.mother.CatMother
 import org.adrianliz.playingwithcats.cats.usecases.SearchCatsUseCase
 import org.junit.jupiter.api.BeforeEach
 import kotlin.test.Test
@@ -34,8 +34,8 @@ class QuestionCreatorUseCaseShould {
     fun `create a question with 3 breeds and a cat that matches the first breed`() {
         val existingBreeds = BreedMother.randoms()
         val firstBreed = existingBreeds.first()
-        val cat = Cat(firstBreed.id, firstBreed.name)
-        val filter = CatFilter(cat.breedId)
+        val cat = CatMother.randomWithBreed(firstBreed)
+        val filter = CatFilter(cat.breed.id)
         val useCase = QuestionCreatorUseCase(searchBreedsUseCase, searchCatsUseCase, breedChooser)
         breedsClientGiven.thereAreBreeds(existingBreeds)
         imagesClientGiven.thereIsACatMatching(filter, cat)

@@ -18,13 +18,13 @@ class SearchCatsUseCaseShould {
     @Test
     fun `search a cat by breed`() {
         val existingCat = CatMother.random()
-        val filter = CatFilter(existingCat.breedId)
+        val filter = CatFilter(existingCat.breed.id)
         val searchCatsUseCase = SearchCatsUseCase(catsRepository)
         imagesClientGiven.thereIsACatMatching(filter, existingCat)
 
         val cats = searchCatsUseCase.search(filter)
 
-        assertEquals(cats[0].breedId, existingCat.breedId)
+        assertEquals(cats[0].breed, existingCat.breed)
     }
 
     @BeforeEach

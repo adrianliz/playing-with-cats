@@ -1,5 +1,6 @@
 package org.adrianliz.playingwithcats.cats.infrastructure.thecatapi
 
+import org.adrianliz.playingwithcats.breeds.domain.Breed
 import org.adrianliz.playingwithcats.cats.domain.Cat
 import org.adrianliz.playingwithcats.cats.domain.CatFilter
 import org.springframework.beans.factory.annotation.Value
@@ -23,8 +24,9 @@ class ImagesClient(
             .body(object : ParameterizedTypeReference<List<SearchImageResponse>>() {}) ?: emptyList()
 
         return searchImagesResponse.map {
-            val breed = it.breeds.first()
-            Cat(breed.id, breed.name)
+            val breed = Breed(it.breeds.first().id, it.breeds.first().name)
+
+            Cat(it.id, it.url, breed)
         }
     }
 }

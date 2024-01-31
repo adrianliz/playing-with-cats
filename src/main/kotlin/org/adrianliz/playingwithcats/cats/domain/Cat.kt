@@ -1,3 +1,5 @@
 package org.adrianliz.playingwithcats.cats.domain
 
-data class Cat(val breedId: String, val breedName: String)
+import org.adrianliz.playingwithcats.breeds.domain.Breed
+
+data class Cat(val id: String, val imageUrl: String, val breed: Breed)
