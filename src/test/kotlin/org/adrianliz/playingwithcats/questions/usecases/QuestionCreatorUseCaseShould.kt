@@ -1,6 +1,7 @@
 package org.adrianliz.playingwithcats.questions.usecases
 
 import io.mockk.mockk
+import io.mockk.verify
 import org.adrianliz.playingwithcats.breeds.domain.BreedChooser
 import org.adrianliz.playingwithcats.breeds.givens.BreedChooserGiven
 import org.adrianliz.playingwithcats.breeds.givens.BreedsClientGiven
@@ -14,6 +15,7 @@ import org.adrianliz.playingwithcats.cats.infrastructure.repository.TheCatApiRep
 import org.adrianliz.playingwithcats.cats.infrastructure.thecatapi.ImagesClient
 import org.adrianliz.playingwithcats.cats.mother.CatMother
 import org.adrianliz.playingwithcats.cats.usecases.SearchCatsUseCase
+import org.adrianliz.playingwithcats.questions.domain.QuestionRepository
 import org.junit.jupiter.api.BeforeEach
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -22,6 +24,7 @@ class QuestionCreatorUseCaseShould {
     private val breedsClient = mockk<BreedsClient>()
     private val imagesClient = mockk<ImagesClient>()
     private val breedChooser = mockk<BreedChooser>()
+    private val questionRepository = mockk<QuestionRepository>(relaxUnitFun = true)
     private val breedsClientGiven = BreedsClientGiven(breedsClient)
     private val imagesClientGiven = ImagesClientGiven(imagesClient)
     private val breedChooserGiven = BreedChooserGiven(breedChooser)
@@ -36,7 +39,7 @@ class QuestionCreatorUseCaseShould {
         val firstBreed = existingBreeds.first()
         val cat = CatMother.randomWithBreed(firstBreed)
         val filter = CatFilter(cat.breed.id)
-        val useCase = QuestionCreatorUseCase(searchBreedsUseCase, searchCatsUseCase, breedChooser)
+        val useCase = QuestionCreatorUseCase(searchBreedsUseCase, searchCatsUseCase, breedChooser, questionRepository)
         breedsClientGiven.thereAreBreeds(existingBreeds)
         imagesClientGiven.thereIsACatMatching(filter, cat)
         breedChooserGiven.choosesFirstBreed(existingBreeds)
@@ -45,6 +48,7 @@ class QuestionCreatorUseCaseShould {
 
         assertEquals(question.breeds.size, 3)
         assertEquals(question.cat, cat)
+        verify { questionRepository.save(question) }
     }
 
     @BeforeEach
