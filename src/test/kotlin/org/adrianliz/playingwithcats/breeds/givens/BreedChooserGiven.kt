@@ -12,7 +12,7 @@ class BreedChooserGiven(private val breedChooser: BreedChooser) {
                 breeds.containsAll(filteredBreeds)
             }
             breedChooser.chooseOne(matcher)
-        } returns breeds[0]
+        } returns breeds.first()
     }
 
     fun cleanMock() {

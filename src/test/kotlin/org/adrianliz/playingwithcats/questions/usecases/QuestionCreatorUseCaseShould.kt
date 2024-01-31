@@ -33,7 +33,7 @@ class QuestionCreatorUseCaseShould {
     @Test
     fun `create a question with 3 breeds and a cat that matches the first breed`() {
         val existingBreeds = BreedMother.randoms()
-        val firstBreed = existingBreeds[0]
+        val firstBreed = existingBreeds.first()
         val cat = Cat(firstBreed.id, firstBreed.name)
         val filter = CatFilter(cat.breedId)
         val useCase = QuestionCreatorUseCase(searchBreedsUseCase, searchCatsUseCase, breedChooser)
