@@ -18,7 +18,7 @@ import kotlin.test.assertEquals
 class QuestionCreatorUseCaseShould {
     private val breedsClient = mockk<BreedsClient>()
     private val imagesClient = mockk<ImagesClient>()
-    private val breedChooser = mockk<BreedChooser>(relaxed = true)
+    private val breedChooser = mockk<BreedChooser>()
     private val breedRepository = TheCatApiBreedRepository(breedsClient)
     private val catRepository = TheCatApiRepository(imagesClient)
     private val searchBreedsUseCase = SearchBreedsUseCase(breedRepository)
@@ -56,19 +56,19 @@ class QuestionCreatorUseCaseShould {
     }
 
     @Test
-    fun `create a question with 3 breeds by default`() {
+    fun `create a question with 3 breeds and a cat that matches the first breed`() {
         val existingBreeds = IntRange(1, 10).map {
             createBreed()
         }
         val firstBreed = existingBreeds[0]
         val cat = Cat(firstBreed.id, firstBreed.name)
         val filter = CatFilter(cat.breedId)
-        val useCase = QuestionCreatorUseCase(searchBreedsUseCase, searchCatsUseCase)
+        val useCase = QuestionCreatorUseCase(searchBreedsUseCase, searchCatsUseCase, breedChooser)
         givenThereAreBreeds(existingBreeds)
         givenThereIsACatMatching(filter, cat)
         givenChooserChoosesFirstBreed(existingBreeds)
 
-        val question = useCase.create(breedChooser)
+        val question = useCase.create()
 
         assertEquals(question.breeds.size, 3)
         assertEquals(question.cat, cat)

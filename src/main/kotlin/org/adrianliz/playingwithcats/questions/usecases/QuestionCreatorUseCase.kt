@@ -11,10 +11,11 @@ import org.springframework.stereotype.Service
 @Service
 class QuestionCreatorUseCase(
     val searchBreedsUseCase: SearchBreedsUseCase,
-    val searchCatsUseCase: SearchCatsUseCase
+    val searchCatsUseCase: SearchCatsUseCase,
+    val breedChooser: BreedChooser
 ) {
 
-    fun create(breedChooser: BreedChooser): Question {
+    fun create(): Question {
         val breeds = searchBreedsUseCase.search(BreadFilter(3))
         val questionBreed = breedChooser.chooseOne(breeds)
         val cat = searchCatsUseCase.search(CatFilter(questionBreed.id))
