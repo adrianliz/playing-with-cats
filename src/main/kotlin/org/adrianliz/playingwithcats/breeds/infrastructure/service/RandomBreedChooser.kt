@@ -1,7 +1,7 @@
-package org.adrianliz.playingwithcats.questions.infrastructure
+package org.adrianliz.playingwithcats.breeds.infrastructure.service
 
 import org.adrianliz.playingwithcats.breeds.domain.Breed
-import org.adrianliz.playingwithcats.questions.domain.BreedChooser
+import org.adrianliz.playingwithcats.breeds.domain.BreedChooser
 import org.springframework.stereotype.Service
 
 @Service
