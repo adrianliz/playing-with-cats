@@ -5,15 +5,17 @@ import org.adrianliz.playingwithcats.common.mother.StringMother
 
 class BreedMother {
     companion object {
-        fun randoms(numOfBreeds: Int = 10) = IntRange(1, numOfBreeds).map {
-            random()
-        }
+        fun randoms(numOfBreeds: Int = 10) =
+            IntRange(1, numOfBreeds).map {
+                random()
+            }
 
         fun random() = create()
 
         private fun create(
             id: String = StringMother.random(),
-            name: String = StringMother.random()
-        ) = Breed(id, name)
+            name: String = StringMother.random(),
+            infoUrl: String = StringMother.random(),
+        ) = Breed(id, name, infoUrl)
     }
 }

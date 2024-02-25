@@ -18,7 +18,7 @@ class SearchCatsUseCaseShould {
     @Test
     fun `search a cat by breed`() {
         val existingCat = CatMother.random()
-        val filter = CatFilter(existingCat.breed.id)
+        val filter = CatFilter(existingCat.breed)
         val searchCatsUseCase = SearchCatsUseCase(catsRepository)
         imagesClientGiven.thereIsACatMatching(filter, existingCat)
 

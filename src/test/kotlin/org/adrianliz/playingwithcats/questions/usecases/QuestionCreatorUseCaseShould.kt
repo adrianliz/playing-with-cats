@@ -38,7 +38,7 @@ class QuestionCreatorUseCaseShould {
         val existingBreeds = BreedMother.randoms()
         val firstBreed = existingBreeds.first()
         val cat = CatMother.randomWithBreed(firstBreed)
-        val filter = CatFilter(cat.breed.id)
+        val filter = CatFilter(cat.breed)
         val useCase = QuestionCreatorUseCase(searchBreedsUseCase, searchCatsUseCase, breedChooser, questionRepository)
         breedsClientGiven.thereAreBreeds(existingBreeds)
         imagesClientGiven.thereIsACatMatching(filter, cat)

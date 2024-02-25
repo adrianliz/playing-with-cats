@@ -20,7 +20,8 @@ class QuestionSolverUseCaseShould {
         val expectedBreed = BreedMother.random()
         val question = QuestionMother.withCatMatchingBreed(expectedBreed)
         val answer = QuestionAnswer(question.id, expectedBreed.id)
-        val useCase = QuestionSolverUseCase(questionRepository)
+        val findQuestionUseCase = FindQuestionUseCase(questionRepository)
+        val useCase = QuestionSolverUseCase(questionRepository, findQuestionUseCase)
         questionRepositoryGiven.thereIsQuestion(question)
 
         useCase.solve(answer)
