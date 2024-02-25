@@ -14,15 +14,14 @@ class QuestionCreatorUseCase(
     val searchBreedsUseCase: SearchBreedsUseCase,
     val searchCatsUseCase: SearchCatsUseCase,
     val breedChooser: BreedChooser,
-    val questionRepository: QuestionRepository
+    val questionRepository: QuestionRepository,
 ) {
-
     fun create(): Question {
         val breeds = searchBreedsUseCase.search(BreadFilter(3))
         val questionBreed = breedChooser.chooseOne(breeds)
-        val cat = searchCatsUseCase.search(CatFilter(questionBreed.id))
+        val cats = searchCatsUseCase.search(CatFilter(questionBreed))
 
-        val question = Question(breeds = breeds, cat = cat.random())
+        val question = Question(breeds = breeds, cat = cats.random())
         questionRepository.save(question)
 
         return question

@@ -11,20 +11,22 @@ import org.springframework.web.client.RestClient
 @Service
 class ImagesClient(
     @Value("\${theCatApi.baseUri}") private val baseUri: String,
-    @Value("\${theCatApi.apiKey}") private val apiKey: String
+    @Value("\${theCatApi.apiKey}") private val apiKey: String,
 ) {
-    private val client = RestClient.builder().baseUrl(baseUri)
-        .defaultHeader("Content-Type", "application/json")
-        .defaultHeader("x-api-key", apiKey).build()
+    private val client =
+        RestClient.builder().baseUrl(baseUri)
+            .defaultHeader("Content-Type", "application/json")
+            .defaultHeader("x-api-key", apiKey).build()
 
     fun getCatsMatching(filter: CatFilter): List<Cat> {
-        val searchImagesResponse = client.get()
-            .uri("/images/search?breed_ids=${filter.breedId}&page=0&limit=1&order=RAND&has_breeds=true")
-            .retrieve()
-            .body(object : ParameterizedTypeReference<List<SearchImageResponse>>() {}) ?: emptyList()
+        val searchImagesResponse =
+            client.get()
+                .uri("/images/search?breed_ids=${filter.breed.id}&page=0&limit=1&order=RAND&has_breeds=true")
+                .retrieve()
+                .body(object : ParameterizedTypeReference<List<SearchImageResponse>>() {}) ?: emptyList()
 
         return searchImagesResponse.map {
-            val breed = Breed(it.breeds.first().id, it.breeds.first().name)
+            val breed = Breed(it.breeds.first().id, it.breeds.first().name, filter.breed.infoUrl)
 
             Cat(it.id, it.url, breed)
         }

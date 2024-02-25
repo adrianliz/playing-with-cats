@@ -1,3 +1,5 @@
 package org.adrianliz.playingwithcats.cats.domain
 
-data class CatFilter(val breedId: String)
+import org.adrianliz.playingwithcats.breeds.domain.Breed
+
+data class CatFilter(val breed: Breed)

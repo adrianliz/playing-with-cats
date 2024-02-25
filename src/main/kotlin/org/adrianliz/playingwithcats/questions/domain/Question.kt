@@ -8,8 +8,9 @@ data class Question(
     val id: UUID = UUID.randomUUID(),
     val breeds: List<Breed>,
     val cat: Cat,
-    var status: QuestionStatus = QuestionStatus.CREATED
+    var status: QuestionStatus = QuestionStatus.CREATED,
 ) {
+    fun hasBeenSolved() = status != QuestionStatus.CREATED
 
     fun solve(answer: QuestionAnswer) {
         if (answer.breedId == cat.breed.id) {

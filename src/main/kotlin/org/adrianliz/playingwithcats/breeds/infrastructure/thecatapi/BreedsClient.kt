@@ -9,19 +9,20 @@ import org.springframework.web.client.RestClient
 @Service
 class BreedsClient(
     @Value("\${theCatApi.baseUri}") baseUri: String,
-    @Value("\${theCatApi.apiKey}") apiKey: String
+    @Value("\${theCatApi.apiKey}") apiKey: String,
 ) {
-
-    private val client = RestClient.builder().baseUrl(baseUri)
-        .defaultHeader("Content-Type", "application/json")
-        .defaultHeader("x-api-key", apiKey).build()
+    private val client =
+        RestClient.builder().baseUrl(baseUri)
+            .defaultHeader("Content-Type", "application/json")
+            .defaultHeader("x-api-key", apiKey).build()
 
     fun getAllBreeds(): List<Breed> {
-        val breedsResponse = client.get()
-            .uri("/breeds")
-            .retrieve()
-            .body(object : ParameterizedTypeReference<List<BreedResponse>>() {}) ?: emptyList()
+        val breedsResponse =
+            client.get()
+                .uri("/breeds")
+                .retrieve()
+                .body(object : ParameterizedTypeReference<List<BreedResponse>>() {}) ?: emptyList()
 
-        return breedsResponse.map { Breed(it.id, it.name) }
+        return breedsResponse.filter { it.wikipediaUrl != null }.map { Breed(it.id, it.name, it.wikipediaUrl!!) }
     }
 }
