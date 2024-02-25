@@ -6,6 +6,7 @@ import org.adrianliz.playingwithcats.breeds.usecases.SearchBreedsUseCase
 import org.adrianliz.playingwithcats.cats.domain.CatFilter
 import org.adrianliz.playingwithcats.cats.usecases.SearchCatsUseCase
 import org.adrianliz.playingwithcats.questions.domain.Question
+import org.adrianliz.playingwithcats.questions.domain.QuestionCanNotBeCreatedException
 import org.adrianliz.playingwithcats.questions.domain.QuestionRepository
 import org.springframework.stereotype.Service
 
@@ -20,6 +21,10 @@ class QuestionCreatorUseCase(
         val breeds = searchBreedsUseCase.search(BreadFilter(3))
         val questionBreed = breedChooser.chooseOne(breeds)
         val cats = searchCatsUseCase.search(CatFilter(questionBreed))
+
+        if (cats.isEmpty()) {
+            throw QuestionCanNotBeCreatedException()
+        }
 
         val question = Question(breeds = breeds, cat = cats.random())
         questionRepository.save(question)
