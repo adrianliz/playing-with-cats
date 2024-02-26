@@ -6,7 +6,7 @@ COPY gradle.properties .
 COPY gradlew .
 COPY gradle ./gradle
 COPY src ./src
-RUN ./gradlew bootJar
+RUN ./gradlew bootJar --no-daemon
 
 FROM amazoncorretto:21-alpine
 WORKDIR /app
