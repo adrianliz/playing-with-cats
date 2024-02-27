@@ -1,4 +1,4 @@
-package org.adrianliz.playingwithcats.common.infrastructure
+package org.adrianliz.playingwithcats.common.config
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.CorsRegistry
