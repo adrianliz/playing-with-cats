@@ -23,7 +23,7 @@ class QuestionCreatorUseCase(
 
         if (cats.isEmpty()) {
             // Retry with a different breed
-            create()
+            return create()
         }
 
         val question = Question(breeds = breeds, cat = cats.random())
