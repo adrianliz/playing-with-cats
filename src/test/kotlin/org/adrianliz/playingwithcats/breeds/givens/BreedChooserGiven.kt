@@ -8,9 +8,10 @@ import org.adrianliz.playingwithcats.breeds.domain.BreedChooser
 class BreedChooserGiven(private val breedChooser: BreedChooser) {
     fun choosesFirstBreed(breeds: List<Breed>) {
         every {
-            val matcher = match<List<Breed>> { filteredBreeds ->
-                breeds.containsAll(filteredBreeds)
-            }
+            val matcher =
+                match<List<Breed>> { filteredBreeds ->
+                    breeds.containsAll(filteredBreeds)
+                }
             breedChooser.chooseOne(matcher)
         } returns breeds.first()
     }

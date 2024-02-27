@@ -14,7 +14,7 @@ class CatMother {
         private fun createCat(
             id: String = StringMother.random(),
             url: String = StringMother.random(),
-            breed: Breed = BreedMother.random()
+            breed: Breed = BreedMother.random(),
         ) = Cat(id, url, breed)
     }
 }

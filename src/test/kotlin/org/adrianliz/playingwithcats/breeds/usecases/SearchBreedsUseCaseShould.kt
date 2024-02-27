@@ -15,7 +15,6 @@ import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
-
 class SearchBreedsUseCaseShould {
     private val breedsClient = mockk<BreedsClient>()
     private val breedsClientGiven = BreedsClientGiven(breedsClient)
@@ -23,7 +22,10 @@ class SearchBreedsUseCaseShould {
 
     @ParameterizedTest
     @CsvSource("3, 3", "3, 5")
-    fun `search randomly n breeds of m when requested`(numOfBreedsToFilter: Int, totalBreeds: Int) {
+    fun `search randomly n breeds of m when requested`(
+        numOfBreedsToFilter: Int,
+        totalBreeds: Int,
+    ) {
         val existingBreeds = BreedMother.randoms(totalBreeds)
         val useCase = SearchBreedsUseCase(breedRepository)
         val filter = BreadFilter(numOfBreedsToFilter)

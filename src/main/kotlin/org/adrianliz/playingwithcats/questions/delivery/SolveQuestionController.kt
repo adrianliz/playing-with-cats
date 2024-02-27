@@ -13,13 +13,12 @@ import java.util.*
 
 @RestController
 class SolveQuestionController(
-    private val useCase: QuestionSolverUseCase
+    private val useCase: QuestionSolverUseCase,
 ) {
-
     @PostMapping("/questions/{questionId}/solve")
     fun solveQuestion(
         @PathVariable("questionId") id: String,
-        @RequestBody payload: QuestionAnswerPayload
+        @RequestBody payload: QuestionAnswerPayload,
     ) {
         try {
             val questionId = UUID.fromString(id)

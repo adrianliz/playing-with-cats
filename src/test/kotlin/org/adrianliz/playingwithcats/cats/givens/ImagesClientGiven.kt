@@ -7,7 +7,10 @@ import org.adrianliz.playingwithcats.cats.domain.CatFilter
 import org.adrianliz.playingwithcats.cats.infrastructure.thecatapi.ImagesClient
 
 class ImagesClientGiven(private val imagesClient: ImagesClient) {
-    fun thereIsACatMatching(filter: CatFilter, cat: Cat) {
+    fun thereIsACatMatching(
+        filter: CatFilter,
+        cat: Cat,
+    ) {
         every {
             imagesClient.getCatsMatching(filter)
         } returns listOf(cat)

@@ -11,16 +11,15 @@ class QuestionMother {
         fun withCatMatchingBreed(breed: Breed): Question {
             return create(
                 breeds = listOf(breed, BreedMother.random(), BreedMother.random()),
-                cat = CatMother.randomWithBreed(breed)
+                cat = CatMother.randomWithBreed(breed),
             )
         }
 
         private fun create(
             breeds: List<Breed>,
-            cat: Cat
+            cat: Cat,
         ): Question {
             return Question(breeds = breeds, cat = cat)
         }
     }
-
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 
 @Service
 class SearchBreedsUseCase(private val breedRepository: BreedRepository) {
-
     fun search(filter: BreadFilter): List<Breed> {
         return breedRepository.search(filter)
     }

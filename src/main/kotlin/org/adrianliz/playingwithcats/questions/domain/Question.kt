@@ -2,7 +2,7 @@ package org.adrianliz.playingwithcats.questions.domain
 
 import org.adrianliz.playingwithcats.breeds.domain.Breed
 import org.adrianliz.playingwithcats.cats.domain.Cat
-import java.util.*
+import java.util.UUID
 
 data class Question(
     val id: UUID = UUID.randomUUID(),

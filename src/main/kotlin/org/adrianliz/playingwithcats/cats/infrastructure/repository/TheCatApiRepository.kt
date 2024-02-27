@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service
 
 @Service
 class TheCatApiRepository(private val client: ImagesClient) : CatRepository {
-    
     override fun search(filter: CatFilter): List<Cat> {
         return client.getCatsMatching(filter)
     }

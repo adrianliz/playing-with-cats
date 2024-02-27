@@ -8,7 +8,6 @@ import java.util.*
 
 @Service
 class FindQuestionUseCase(private val questionRepository: QuestionRepository) {
-
     fun find(questionId: UUID): Question {
         return questionRepository.findById(questionId)
             .orElseThrow { QuestionNotFoundException() }
